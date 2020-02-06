@@ -1,0 +1,35 @@
+Database columns will be listed in the order they appear in on each of the tables. Square brackets contain the true ResultSet index when attempting to call table data via a Business Object method using a generic SQL Select statement ("SELECT * from Products;", "SELECT * FROM Administrators;", etc.). Parentheses contain the intended Java datatype (and the corresponding ResultSet getValue() method).
+
+Products
+[1] - SKU (int)
+[4] - ProductName (String)
+[2] - Price (double)
+[3] - LeftInStock (int)
+
+Customers
+[2] - CustomerID (String)
+[1] - FirstName (String)
+[3] - LastName (String)
+[4] - Address (String)
+[6] - Password (String)
+[5] - PaymentCard (int)
+
+Administrators
+[1] - AdminID (String)
+[2] - FirstName (String)
+[3] - LastName (String)
+[4] - Address (String)
+[5] - Password (String)
+
+Orders
+[2] - OrderNumber (int)
+[1] - CustomerID (as in Customers)
+[3] - Validation (boolean)*
+
+OrderContents
+[2] - OrderNumber (as in Orders)
+[1] - OrderProductSKU (as in Products)
+[3] - Quantity (int)
+
+
+*will appear in database column as a checkbox, requires further testing for INSERT and UPDATE statements

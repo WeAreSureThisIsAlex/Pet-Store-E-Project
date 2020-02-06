@@ -1,0 +1,23 @@
+The listed values are the primary keys for their respective tables. OrderContents uses no primary key, only values that match primary keys from Orders and Products.
+
+Products
+-8000001
+-8000002
+-8000003
+-8000004
+
+Customers
+-C001
+-C002
+-C003
+
+Administrators
+-A001
+-A002
+
+Orders
+-10001
+-10002
+
+OrderContents
+-(all data in Orders/Customers)
