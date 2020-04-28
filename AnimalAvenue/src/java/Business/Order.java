@@ -36,19 +36,20 @@ public class Order {
     }
     //generates its orderNo from DB
     public Order(String custID, ItemList items){
-        //gets total from ItemList and fills that property
         //fills orderNo from DB
         this.orderNo = generateOrderNumber();
+        this.custNo = custID;
+        this.items = items;
         
     }
-    /*
-    public Order(int orderNo, int custID, ItemList items) {
-        //gets total from ItemList and fills that property
-        this.total = items.getTotal();       
+    
+    public Order(int orderNo, String custID) {      
         //fills orderNo from parameters
         this.orderNo = orderNo;
+        this.custNo = custID;
+        retrieveOrderContentsDB();
     }        
-    */
+    
     //Getters and Setters
     /**
      * 
@@ -200,10 +201,9 @@ public class Order {
         try{
             Data.Access databaseAccess = new Data.Access();
             
-            for(int i = 0; i < items.count; i++){
+            for(int i = 0; i < items.getCount(); i++){
                 //set up string
-                String sql = "INSERT INTO OrderContents " +
-                         "VALUES ('" + items.get(i).getSku() + "', '" + getOrderNo()+ "', '" + items.get(i).getQuantity()+ "')";
+                String sql = "INSERT INTO OrderContents VALUES ('" + items.get(i).getSku() + "', '" + getOrderNo()+ "', '" + items.get(i).getQuantity()+ "')";
                 //execute insertion                         
                 int num = databaseAccess.getStatement().executeUpdate(sql);
 
@@ -282,7 +282,7 @@ public class Order {
             Data.Access databaseAccess = new Data.Access();
             
             //setup statement and execute it
-            String sql = "select MAX(OrderNo) from Orders";
+            String sql = "select MAX(OrderNumber) from Orders";
             ResultSet rs = databaseAccess.getStatement().executeQuery(sql);
             
             rs.next();
@@ -309,15 +309,16 @@ public class Order {
      */
     public void display(){
         System.out.println("   Order Information   " + System.lineSeparator() +
-                           "=========================");
+                           "=========================" + System.lineSeparator() + 
+                           "Order #" + this.orderNo + System.lineSeparator() +
+                           "Customer " + this.custNo + System.lineSeparator());
         items.display();
         System.out.println("\nTotal: $" + items.getTotal());
     }
     
     public static void main(String args[]) {
         Order O = new Order();
-        O.setOrderNo(10001);
-        O.retrieveOrderContentsDB();
+        O.selectDB(10008);
         O.display();
     }
 }

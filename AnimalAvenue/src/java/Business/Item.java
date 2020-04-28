@@ -22,6 +22,10 @@ public class Item extends Product {
         this(0, "", 0.00, 0, 1);
     }
     
+    public Item(Product P, int quantity) {
+        this(P.getSku(), P.getName(), P.getPrice(), P.getStock(), quantity);
+    }
+    
     /**
      * fullargs constructor
      * @param SKU

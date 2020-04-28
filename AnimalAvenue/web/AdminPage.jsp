@@ -88,7 +88,7 @@
                     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">About Us</a>
@@ -97,7 +97,7 @@
                                 <a class="nav-link" href="#">Contact</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="FAQ.html">FAQ</a>
+                                <a class="nav-link" href="FAQ.jsp">FAQ</a>
                             </li>
                         </ul>
                     </div>
@@ -108,7 +108,7 @@
                     <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                             <li class="nav-item">
-                                <a class="nav-link" href="index.html">Sign Out</a>
+                                <a class="nav-link" href="logout.jsp">Sign Out</a>
                             </li>
                             
                         </ul>
@@ -135,7 +135,7 @@
         
         
             <div class="col-6">
-            <form id="order-lookup-form" action="adminHandler?action=candelOrder" method="POST">
+            <form id="order-lookup-form" action="adminHandler?action=cancelOrder" method="POST">
             <label>Cancel Order:</label>
             <input type="text" name="cancelOrder"id="cancelOrder" placeholder="order num">
             <input type="submit" name="submit" id="submit" value="Cancel">
@@ -176,7 +176,7 @@
             <div class="col-4">
             <form id="order-lookup-form" action="adminHandler?action=deleteProduct" method="POST">
             <label>Delete Product:</label>
-            <input type="text" name="ProductSku"id="deleteProduct" placeholder="sku number">
+            <input type="text" name="productSku" id="deleteProduct" placeholder="sku number">
             <input type="submit" name="submit" id="submit" value="Delete">
           </form>
         </div>

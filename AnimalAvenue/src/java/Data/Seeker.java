@@ -98,7 +98,7 @@ public class Seeker {
         ArrayList<String> ORDERS = parse("Orders");
         for (String S:ORDERS) {
             String[] s = S.split("~", 3);
-            Order O = new Order(Integer.parseInt(s[0]));
+            Order O = new Order(Integer.parseInt(s[0]), s[1]);
             addObject(O);
         }
     }
@@ -135,8 +135,6 @@ public class Seeker {
     
     public static void main(String args[]) {
         Seeker S = new Seeker();
-        for (Business.Product BP: S.yieldProducts()) {
-            BP.display();
-        }
+        S.fullParse();
     }
 }

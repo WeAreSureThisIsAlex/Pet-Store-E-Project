@@ -88,9 +88,10 @@ class Cart {
      * Creates Order object from cart and inserts to db i.e. checkout
      * @param custID 
      */
-    public void placeOrder(String custID) {
+    public void placeOrder(String custNo) {
             //creates Order object based on current cart
-            Order order = new Order(custID, getItems());
+            Order order = new Order(custNo, this.getItems());
+            order.display();
             //inserts new order into DB
             order.insertDB();
     }
@@ -101,7 +102,23 @@ class Cart {
         System.out.println("   Cart Information   " + System.lineSeparator() +
                            "=========================" + System.lineSeparator() +
                            "Customer ID: " + getCustID() + System.lineSeparator() + 
-                           "Cart Total: " + getTotal()+ System.lineSeparator());
+                           "Cart Total: $" + getTotal()+ System.lineSeparator());
         items.display();
+    }
+    
+    public static void main(String args[]) {
+        Cart C = new Cart();
+        Product P = new Product();
+        P.selectDB(8000001);
+        Item I = new Item(P, 3);
+        C.addItem(I);
+        P.selectDB(8000002);
+        I = new Item(P, 3);
+        C.addItem(I);
+        C.display();
+        C.placeOrder("C001");
+        Customer c = new Customer();
+        c.selectDB("C001");
+        c.display();
     }
 }

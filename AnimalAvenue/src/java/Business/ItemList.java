@@ -90,9 +90,22 @@ public class ItemList {
      * @param item 
      */
     public void add(Item item){
-        
-        items.add(item);
-        count++;
+        boolean flag = false;
+        int match = 0;
+        for (Item I : this.items) {
+            if (I.getSku()==item.getSku()) {
+                flag = true;
+                break;
+            }
+            match++;
+        }
+        if (flag&&match<this.count) {
+            int newQuan = this.get(match).getQuantity() + item.getQuantity();
+            this.get(match).setQuantity(newQuan);
+        } else {
+            items.add(item);
+            count++;
+        }
         calculateTotal();
     }
     
@@ -131,6 +144,9 @@ public class ItemList {
         for (Product P: new Data.Seeker().yieldProducts()) {
             IL.add(new Item(P.getSku(), P.getName(), P.getPrice(), P.getStock(), 1));
         }
+        Product p = new Product();
+        p.selectDB(8000003);
+        IL.add(new Item(p.getSku(), p.getName(), p.getPrice(), p.getStock(), 4));
         IL.display();
     }
 }

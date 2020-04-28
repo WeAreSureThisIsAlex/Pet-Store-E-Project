@@ -117,7 +117,7 @@ public class Administrator extends PersonObj {
             Access databaseAccess = new Access();
             
             //setup statment
-            String sql = "DELETE FROM Administrators WHERE AdminID=" + getId();          
+            String sql = "DELETE FROM Administrators WHERE AdminID='" + getId() + "';";          
             
             //execute Deletion                                               
             int num = databaseAccess.getStatement().executeUpdate(sql);

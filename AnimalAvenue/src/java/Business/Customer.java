@@ -12,6 +12,7 @@ public class Customer extends PersonObj {
     
     //Properties
     String cardInfo;
+    OrderHistory orderHistory = new OrderHistory();
     
     //Constructors
     /**
@@ -37,9 +38,8 @@ public class Customer extends PersonObj {
         
         //call super constructor
         super(Id, fname, lname, email, password, address);
-        
         this.cardInfo = cardInfo;
-        
+        this.orderHistory.retrieveOrdersDB(Id);
     }     
 
     //Getters and Setters
@@ -56,6 +56,18 @@ public class Customer extends PersonObj {
      */
     public void setCardInfo(String cardInfo) {
         this.cardInfo = cardInfo;
+    }
+    
+    /**
+     * 
+     * @return OrderHistory Customer.orderHistory
+     */
+    public OrderHistory getHistory() {
+        return orderHistory;
+    }
+    
+    public void setHistory(OrderHistory orderHistory) {
+        this.orderHistory = orderHistory;
     }
            
     //Database access methods
@@ -80,7 +92,9 @@ public class Customer extends PersonObj {
             setFname(result.getString(3));
             setLname(result.getString(4));
             setAddress(result.getString(5));
-            setEmail("");                        
+            setEmail("");
+
+            this.orderHistory.retrieveOrdersDB(ID);
             
             System.out.println("Customer " + ID + " Successfully selected" + System.lineSeparator());
             
@@ -100,8 +114,7 @@ public class Customer extends PersonObj {
             Access databaseAccess = new Access();
             
             //setup statment
-            String sql = "INSERT INTO Customers " +
-                         "VALUES ('" + getId()+ "', '" + getPw()+ "', '" + getFname()+ "', '" + getLname()+ "', '" + getAddress()+ "', '" + getEmail()+ "')";             
+            String sql = "INSERT INTO Customers (CustomerID, Password, FirstName, LastName, Address, PaymentCard) VALUES ('" + getId()+ "', '" + getPw()+ "', '" + getFname()+ "', '" + getLname()+ "', '" + getAddress()+ "', '" + getCardInfo() + "');";           
             
             //execute insertion                         
             int num = databaseAccess.getStatement().executeUpdate(sql);
@@ -129,7 +142,7 @@ public class Customer extends PersonObj {
             Access databaseAccess = new Access();
             
             //setup statment
-            String sql = "DELETE FROM Customers WHERE CustID = " + getId(); 
+            String sql = "DELETE FROM Customers WHERE CustomerID = '" + getId() + "';"; 
                      
             //execute Deletion                         
             int num = databaseAccess.getStatement().executeUpdate(sql);
@@ -155,11 +168,34 @@ public class Customer extends PersonObj {
             System.out.println("Exception caught - " + ex + System.lineSeparator());
         }
     }
-    //add display override
+    
+    public void display() {
+        super.display();
+        System.out.println(this.cardInfo);
+        this.orderHistory.display();
+    }
     
     public static void main(String args[]) {
+        /*
+        String test = "";
+        try {
+            Data.Access DA = new Data.Access();
+            String sql = "Select CustomerID From Customers Order By CustomerID Desc;";
+            
+            ResultSet rs = DA.getStatement().executeQuery(sql);
+            
+            rs.next();
+            test = rs.getString(1);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+            test = "C001";
+        }
+        test = test.substring(1);
+        System.out.println(Integer.parseInt(test) + 1);
+        */
         Customer C = new Customer();
-        C.selectDB("C001");
+        C.selectDB("C004");
         C.display();
     }
 }

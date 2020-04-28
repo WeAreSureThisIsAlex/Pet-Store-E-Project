@@ -7,7 +7,7 @@ import java.sql.*;
  * @author Alexander Lawton
  */
 public class Access {
-    private String DATABASEPATH = "F:/AnimalAvenue/DB/AA_DB(v0.1).accdb";
+    private String DATABASEPATH = "/AnimalAvenue/DB/AA_DB(v0.1).accdb";
     private Connection CONNECTION;
     private Statement STATEMENT;
     
@@ -49,11 +49,7 @@ public class Access {
             while (rs.next()) {
                     System.out.println(rs.getString(2));
             }
-            /*
-            sql = "Update Customers set CustomerID='C001' where CustomerID='C000';";
-            data.getStatement().executeUpdate(sql);
-            System.out.println("Statement executed");
-            */
+            
             data.close();
         }
         catch (Exception ex) {
