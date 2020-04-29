@@ -7,7 +7,7 @@ import java.sql.*;
  * @author Alexander Lawton
  */
 public class Access {
-    private String DATABASEPATH = "/AnimalAvenue/DB/AA_DB(v0.1).accdb";
+    private String DATABASEPATH = "F:/AnimalAvenue/DB/AA_DB(v0.1).accdb";
     private Connection CONNECTION;
     private Statement STATEMENT;
     

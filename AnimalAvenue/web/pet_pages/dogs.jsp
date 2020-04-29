@@ -4,6 +4,14 @@
      loggedin = true;
  }
 %>
+<%@page import="Business.Product" %>
+<%@page import="Web.ProductPanel" %>
+<% 
+    Product P = new Product();
+    P.selectDB(8000001);
+    P.display();
+    ProductPanel P2 = new ProductPanel(P);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -163,21 +171,9 @@
         </div>
         <div class="row" id="food-row-one">
             <div class="column">
-                <form action="../cartHandler?action=8000001" method="post">
-                <div class="content">
-                    <img id="product-img"src="../pictures/dogfood-BlueBuffaloCanned.jpg" alt="Blue Buffalo Canned">
-                    <div id="product-modal" class="modal">
-                        <span class="close">&times;</span>
-                        <img class="modal-content" id="modal-img">
-                        <div id="caption">
-                            <p class="product-description">Keep your furry friend going strong with Blue Buffalo Homestyle Recipe Chicken Dinner with Garden Vegetables and Brown Rice Canned Dog Food. Each can features real chicken as the first ingredient with garden fruits and veggies because your pup deserves nothing but the best. This paté is formulated to support the nutritional needs of adult dogs with high-quality protein to help maintain lean muscle mass. It is made with healthy carbohydrates to provide your companion with the energy he needs for an active life. This food is also enhanced with vitamins and minerals. This canned food from Blue Buffalo contains no by-product meals, corn, wheat or soy, and no artificial flavors or preservatives for a meal you can feel good about giving to your sidekick</p>
-                        </div>
-                    </div>
-                    <h3>Blue Buffalo Canned</h3>
-                    <h6>$25.99</h6>
-                    <button type="submit" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-                </form>
+                <!-- START HERE -->
+                <%= P2.yield() %>
+                <!-- STOP HERE -->
             </div>
             <div class="column">
                 <div class="content">

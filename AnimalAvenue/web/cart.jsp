@@ -43,8 +43,8 @@
                         out.println(I.getName() + ": $" + I.getPrice() + " x" + I.getQuantity() + "<br>");
                     }
                 }
-        %>
-        $<%= cart.getItems().getTotal() %>
+        %><br>
+        $<%= cart.getItems().getTotal() %><br>
         <a href="javascript:history.back()">Click here to keep shopping!</a>
         
     </body>
