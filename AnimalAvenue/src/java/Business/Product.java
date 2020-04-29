@@ -1,5 +1,6 @@
 package Business;
 
+import Data.Access;
 import java.sql.*;
 
 /**
@@ -145,7 +146,7 @@ public class Product {
     public void selectDB(int sku) {
         //SKUs start at 8000001
         try {
-            Data.Access DA = new Data.Access();
+            Access DA = new Access();
             String sql = "Select * from Products where SKU=" + sku + ";";
             
             ResultSet rs = DA.getStatement().executeQuery(sql);
@@ -169,7 +170,7 @@ public class Product {
      */
     public void insertDB() {
         try {
-            Data.Access DA = new Data.Access();
+            Access DA = new Access();
             String sql = "Insert into Products (SKU, Price, LeftInStock, ProductName) values(" + this.sku + ", " + this.price + ", " + this.stock + ", \"" + this.name + "\");";
             
             DA.getStatement().executeUpdate(sql);
@@ -187,7 +188,7 @@ public class Product {
      */
     public void updateDB() {
         try {
-            Data.Access DA = new Data.Access();
+            Access DA = new Access();
             String sql = "Update Products set ProductName = \"" + this.name + "\", Price = " + this.price + ", LeftInStock = " + this.stock + " where SKU = " + this.sku + ";";
             
             DA.getStatement().executeUpdate(sql);
@@ -205,7 +206,7 @@ public class Product {
      */
     public void deleteDB() {
         try {
-            Data.Access DA = new Data.Access();
+            Access DA = new Access();
             String sql = "Delete from Products where SKU = " + this.sku + ";";
             
             DA.getStatement().executeUpdate(sql);

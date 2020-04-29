@@ -4,7 +4,7 @@ package Business;
  * 
  * @author Neal Valdez
  */
-class Cart {
+public class Cart {
     
     //Properties
     String custID;

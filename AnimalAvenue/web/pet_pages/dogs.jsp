@@ -163,6 +163,7 @@
         </div>
         <div class="row" id="food-row-one">
             <div class="column">
+                <form action="../cartHandler?action=8000001" method="post">
                 <div class="content">
                     <img id="product-img"src="../pictures/dogfood-BlueBuffaloCanned.jpg" alt="Blue Buffalo Canned">
                     <div id="product-modal" class="modal">
@@ -174,9 +175,9 @@
                     </div>
                     <h3>Blue Buffalo Canned</h3>
                     <h6>$25.99</h6>
-                    
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
+                    <button type="submit" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
                 </div>
+                </form>
             </div>
             <div class="column">
                 <div class="content">
