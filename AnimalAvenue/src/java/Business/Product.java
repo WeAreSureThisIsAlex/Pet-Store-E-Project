@@ -228,8 +228,9 @@ public class Product {
     }
     
     public static void main(String args[]) {
-        Product p2 = new Product();
-        p2.selectDB(8000006);
-        p2.display();
+        Data.Seeker S = new Data.Seeker();
+        for (Product p:S.yieldProducts()) {
+            p.display();
+        }
     }
 }

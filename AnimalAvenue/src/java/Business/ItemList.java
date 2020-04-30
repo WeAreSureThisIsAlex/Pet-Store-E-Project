@@ -18,7 +18,7 @@ public class ItemList {
      * default constructor (noargs)
      */
     public ItemList() {
-        total = 0.0;
+        total = 0.00;
     }
     
     //Getters and Setters
@@ -43,7 +43,7 @@ public class ItemList {
      * @return double ItemList.total
      */
     public double getTotal() {
-        return total;
+        return Math.round(total*100.0)/100.0;
     }
     
     /**
@@ -136,7 +136,7 @@ public class ItemList {
         for (Item I:items) {
             newTotal += (I.getPrice()*I.getQuantity());
         }
-        total = newTotal;
+        total = Math.round(newTotal*100.0)/100.0;
     }
     
     public static void main(String args[]) {

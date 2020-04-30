@@ -49,7 +49,7 @@ public class adminHandler extends HttpServlet {
                     orderLookup(request,response);
                     break;
                 case("cancelOrder"):
-                    
+                    cancelOrder(request,response);
                     break;
                 case("productInfo"):
                     productInfo(request,response);
@@ -91,11 +91,7 @@ public class adminHandler extends HttpServlet {
                 validate=rs.getInt(1);
             }
             dbAccess.close();
-            if(validate == orderNum){
-                return true;
-            }else{
-                return false;
-            }
+            return validate == orderNum;
             
             
             
@@ -108,30 +104,22 @@ public class adminHandler extends HttpServlet {
     
     //login validation for administrators
     protected boolean checkAdmin(String id,String pass){
-        String validate = "";
+        String validate = null;
         
         try{
             Access dbAccess = new Access();
             
             System.out.println(id+" "+pass);
             //execute statment
-            String sql = "SELECT Password FROM Administrators WHERE AdminID='"+id+"'";             
+            String sql = "SELECT * FROM Administrators WHERE ID='"+id+"' and Password='"+pass+"'";             
             System.out.println(sql);
             ResultSet rs = dbAccess.getStatement().executeQuery(sql);
             
-            while (rs.next()){
-                validate=rs.getString(1);
+            if(rs.next()){
+                validate=rs.getString(5);
             }
             dbAccess.close();
-            
-            boolean check = validate.equals(pass);
-            System.out.println(check);
-            if(check){
-                return true;
-            }
-            else{
-                return false;
-            }
+            return validate.equals(pass);
 
             
         }catch(Exception e){
@@ -201,8 +189,7 @@ public class adminHandler extends HttpServlet {
                     RequestDispatcher rd = request.getRequestDispatcher("AdminPage.jsp");
                     rd.forward(request, response);
                 }else{
-                    RequestDispatcher rd = request.getRequestDispatcher("loginError.html");
-                    rd.forward(request, response);
+                    //login error page needed
                 }
      }
      
@@ -217,15 +204,13 @@ public class adminHandler extends HttpServlet {
                 if(result ==true){
                 Order o1 = new Order();
                 o1.selectDB(orderNum);
+                o1.retrieveOrderContentsDB();
 
-                /*
                 OrderHistory oH = new OrderHistory();    
                 oH.retrieveOrdersDB(o1.getCustID());
-                */
                 
-                request.setAttribute("o1",o1);
-                //request.setAttribute("oH",oH);
-                
+                request.setAttribute("o1",o1.getItems().getList());
+                request.setAttribute("oH",oH.getOrders());
                 RequestDispatcher rd = request.getRequestDispatcher("aFormResults/orderLookup.jsp");
                 rd.forward(request, response);
             }else{
@@ -235,7 +220,17 @@ public class adminHandler extends HttpServlet {
      
      protected void cancelOrder(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         //cancel order stuff goes in here
+            
+                //gets order id from adminPage
+                String orderNum = request.getParameter("orderNum");
+                Integer id = Integer.parseInt(orderNum);
+                //cancels order
+                Order o1 = new Order();
+                o1.selectDB(id);
+                o1.deleteDB();
+                    
+                RequestDispatcher rd = request.getRequestDispatcher("aFormResults/cancelOrder.jsp");
+                rd.forward(request, response);
      } 
      
      protected void productInfo(HttpServletRequest request, HttpServletResponse response)
@@ -311,6 +306,13 @@ public class adminHandler extends HttpServlet {
      protected void customerHistory(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             //customer history goes here
+            String id = request.getParameter("customerId");
+            
+            Customer c1 = new Customer();
+            c1.selectDB(id);
+            
+            request.setAttribute("oH",c1.getHistory().getOrders());
+                        
      }
 
      protected void addAdmin(HttpServletRequest request, HttpServletResponse response)

@@ -42,13 +42,22 @@ public class Access {
     public static void main(String args[]) {
         try {
             Access data = new Access();
-            String sql = "Select * from Customers;";
+            String sql = "Delete * from Products;";
 
-            ResultSet rs = data.getStatement().executeQuery(sql);
+            int i = data.getStatement().executeUpdate(sql);
+            //ResultSet rs = data.getStatement().executeQuery(sql);
             System.out.println("Statement executed");
+            if (i>0) {
+                System.out.println("delete successful");
+            }
+            else {
+                System.out.println("delete failed");
+            }
+            /*
             while (rs.next()) {
                     System.out.println(rs.getString(2));
             }
+            */
             
             data.close();
         }

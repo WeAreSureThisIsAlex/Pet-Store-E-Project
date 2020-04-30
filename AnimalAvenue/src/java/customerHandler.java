@@ -50,33 +50,22 @@ public class customerHandler extends HttpServlet {
     }
     
     protected boolean checkCust(String Id,String pass){
-        String validate = "";
+        String validate = null;
         
         try{
             Access dbAccess = new Access();
             
             System.out.println(Id+" "+pass);
             //execute statment
-            String sql = "SELECT Password FROM Customers WHERE CustomerID='"+Id+"';";             
+            String sql = "SELECT * FROM Customers WHERE CustomerID='"+Id+"' and Password='"+pass+"'";             
             System.out.println(sql);
             ResultSet rs = dbAccess.getStatement().executeQuery(sql);
             
             if(rs.next()){
-                validate=rs.getString(1);
+                validate=rs.getString(6);
             }
             dbAccess.close();
-            
-            boolean check = validate.equals(pass);
-            System.out.println(":" + pass + ":" + validate + ":");
-            System.out.println(check);
-            
-            if(check){
-                return true;
-            }
-            else{
-                System.out.println("buzzer");
-                return false;
-            }
+            return validate.equals(pass);
 
             
         }catch(Exception e){
@@ -130,11 +119,22 @@ public class customerHandler extends HttpServlet {
     protected void custSignUp(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-                //get inputs from html form
-                String id = "C007";
-                String newId = String.valueOf(Integer.parseInt(id)+1);
+                //Setting up auto-incrementing id
+                //an-alphanumeric
+                String an = "";
+                Customer C = new Customer();
+                int count = C.getIdNum();
+                String idNum = Integer.toString(count);
+                
+                if(count<10){
+                    an = "C00";
+                }else if(10<=count){
+                    an = "C0";
+                }
+                String id = an+idNum;
+                
 
-                System.out.println(newId);
+                //get inputs from html form
                 String fname = request.getParameter("FirstName");
                 String lname = request.getParameter("LastName");
                 String email = request.getParameter("Email");
@@ -144,7 +144,7 @@ public class customerHandler extends HttpServlet {
                 //get objects from session if needed
 
                 //create new objects
-                Customer c1 = new Customer(newId,fname,lname,email,address,password,"");
+                Customer c1 = new Customer(id,fname,lname,email,address,password,"");
                 c1.insertDB();
                 //make any decisions
 
@@ -183,10 +183,6 @@ public class customerHandler extends HttpServlet {
                     System.out.println("Customer added to session");
                     //#6-use requestDispatcher to forward onto next page  
                     RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-                    rd.forward(request, response);
-                }
-                else {
-                    RequestDispatcher rd = request.getRequestDispatcher("loginError.html");
                     rd.forward(request, response);
                 }
             }

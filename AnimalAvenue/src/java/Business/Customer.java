@@ -169,6 +169,29 @@ public class Customer extends PersonObj {
         }
     }
     
+    public int getIdNum(){
+       
+        String test="";
+        try{
+                Access access = new Access();
+                String sql = "Select CustomerID From Customers Order By CustomerID desc";
+                
+                ResultSet rs = access.getStatement().executeQuery(sql);
+                
+                rs.next();
+                test = rs.getString(1);
+                
+                test = test.substring(1);
+                
+                int idNum = Integer.parseInt(test)+1;
+                
+        return idNum;        
+            
+        }catch(ClassNotFoundException | NumberFormatException | SQLException e){
+            return 1;
+        }
+    }
+    
     public void display() {
         super.display();
         System.out.println(this.cardInfo);

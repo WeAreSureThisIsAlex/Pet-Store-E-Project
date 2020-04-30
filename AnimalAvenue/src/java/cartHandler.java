@@ -35,30 +35,35 @@ public class cartHandler extends HttpServlet {
         HttpSession S = request.getSession();
         
         //check to see if Cart exists in Session and whether or not a Customer is logged in
-        if (S != null && S.getAttribute("cart") == null) {
-            Cart sessionCart = new Cart();
-            if (S != null & S.getAttribute("c1") != null) {
-                Customer C = (Customer) S.getAttribute("c1");
-                sessionCart = new Cart(C.getId(), new ItemList());
-            }
-            S.setAttribute("cart", sessionCart);
+        if (S.getAttribute("c1")==null) {
+            RequestDispatcher rd = request.getRequestDispatcher("customer_login.html");
+            rd.forward(request, response);
         }
+        else {
+            if (S != null && S.getAttribute("cart") == null) {
+                Cart sessionCart = new Cart();
+                if (S != null & S.getAttribute("c1") != null) {
+                    Customer C = (Customer) S.getAttribute("c1");
+                    sessionCart = new Cart(C.getId(), new ItemList());
+                }
+                S.setAttribute("cart", sessionCart);
+            }
         
-        Cart cart = (Cart) S.getAttribute("cart");
+            Cart cart = (Cart) S.getAttribute("cart");
         
-        //Add Selected Item to Cart (add statements)
-        int sku = Integer.parseInt(request.getParameter("action"));
-        Product P = new Product();
-        P.selectDB(sku);
-        cart.addItem(new Item(P, 1));
+            //Add Selected Item to Cart (add statements)
+            int sku = Integer.parseInt(request.getParameter("action"));
+            Product P = new Product();
+            P.selectDB(sku);
+            cart.addItem(new Item(P, 1));
         
-        //Update Cart in Session
-        S.setAttribute("cart", cart);
+            //Update Cart in Session
+            S.setAttribute("cart", cart);
         
-        //Redirect to previous page(?)
-        RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
-        rd.forward(request, response);
-        
+            //Redirect to Cart page
+            RequestDispatcher rd = request.getRequestDispatcher("cart.jsp");
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

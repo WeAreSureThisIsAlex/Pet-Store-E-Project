@@ -135,6 +135,8 @@ public class Seeker {
     
     public static void main(String args[]) {
         Seeker S = new Seeker();
-        S.fullParse();
+        for(Business.Product P : S.yieldProducts()){
+            P.display();
+        }
     }
 }
