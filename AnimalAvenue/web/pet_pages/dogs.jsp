@@ -6,11 +6,20 @@
 %>
 <%@page import="Business.Product" %>
 <%@page import="Web.ProductPanel" %>
+<%@page import="java.util.ArrayList" %>
 <% 
-    Product P = new Product();
-    P.selectDB(8000001);
-    P.display();
-    ProductPanel P2 = new ProductPanel(P);
+    Product P[] = new Data.Seeker().yieldProducts();
+    ArrayList<ProductPanel> food = new ArrayList();
+    ArrayList<ProductPanel> treats = new ArrayList();
+    ArrayList<ProductPanel> acc = new ArrayList();
+    for (Product pr : P) {
+        if (pr.getSku()>8100100 && pr.getSku() < 8100200) {
+            food.add(new ProductPanel(pr));
+        }
+        else if (pr.getSku()>8100400 && pr.getSku()<8100500) {
+            acc.add(new ProductPanel(pr));
+        }
+    }
 %>
 <!DOCTYPE html>
 <html>
@@ -170,89 +179,14 @@
             </div>
         </div>
         <div class="row" id="food-row-one">
-            <div class="column">
-                <!-- START HERE -->
-                <%= P2.yield() %>
-                <!-- STOP HERE -->
-            </div>
-            <div class="column">
-                <div class="content">
-                    <img id="product-img"src="../pictures/dogfood-RachaelRayNutrish.jpg" alt="Rachael Ray Nutrish">
-                    <div id="product-modal" class="modal">
-                        <span class="close">&times;</span>
-                        <img class="modal-content" id="modal-img">
-                        <div id="caption">
-                            <p class="product-description">Product Description</p>
-                        </div>
-                    </div>
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div>
-            <div class="column">
-                <div class="content">
-                    <img id="product-img"src="../pictures/dogfood-PurinaProPlan.jpg" alt="Purina Pro Plan">
-                    <div id="product-modal" class="modal">
-                        <span class="close">&times;</span>
-                        <img class="modal-content" id="modal-img">
-                        <div id="caption">
-                            <p class="product-description">Product Description</p>
-                        </div>
-                    </div>
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div>
-        
+            <%= food.get(new Integer(0)).yield() %>
+            <%= food.get(new Integer(1)).yield() %>
+            <%= food.get(new Integer(2)).yield() %>
         </div>
         <div class="row" id="food-row-two">
-            <div class="column">
-                <div class="content">
-                    <img id="product-img"src="../pictures/dogfood_TasteOfTheWild.jpg" alt="Taste of the Wild">
-                    <div id="product-modal" class="modal">
-                        <span class="close">&times;</span>
-                        <img class="modal-content" id="modal-img">
-                        <div id="caption">
-                            <p class="product-description">Product Description</p>
-                        </div>
-                    </div>
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div>
-            <div class="column">
-                <div class="content">
-                    <img id="product-img"src="../pictures/dogfood_BlueBuffalo.jpg" alt="Blue Buffalo">
-                    <div id="product-modal" class="modal">
-                        <span class="close">&times;</span>
-                        <img class="modal-content" id="modal-img">
-                        <div id="caption">
-                            <p class="product-description">Product Description</p>
-                        </div>
-                    </div>
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div>
-            <div class="column">
-                <div class="content">
-                    <img id="product-img"src="../pictures/dogfood-Cesar.jpg" alt="Cesar">
-                    <div id="product-modal" class="modal">
-                        <span class="close">&times;</span>
-                        <img class="modal-content" id="modal-img">
-                        <div id="caption">
-                            <p class="product-description">Product Description</p>
-                        </div>
-                    </div>
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div>  
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>  
         </div>
         
         <div class="row" id="dog-treats">
@@ -261,64 +195,14 @@
             </div>
         </div>
         <div class="row" id="treats-row-one">
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-        
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>
         </div>
         <div class="row" id="treats-row-two">
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-        
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>        
         </div>
         
         <div class="row" id="dog-toys">
@@ -327,64 +211,14 @@
             </div>
         </div>
         <div class="row" id="toys-row-one">
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-        
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>
         </div>
         <div class="row" id="toys-row-two">
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-        
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>
         </div>
         
         <div class="row" id="dog-accessories">
@@ -393,64 +227,14 @@
             </div>
         </div>
         <div class="row" id="accessories-row-one">
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-        
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>        
         </div>
         <div class="row" id="accessories-row-two">
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-             <div class="column">
-                <div class="content">
-                    <img src="#" alt="">
-                    <h3>Name</h3>
-                    <h6>$0.00</h6>
-                    <p class="product-description">Product Description</p>
-                    <button type="button" class="add-button"> <img src="../pictures/add_button.png" alt="+"> Add to Cart</button>
-                </div>
-            </div> 
-        
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>
+            <%= new ProductPanel().yield() %>        
         </div>
         
          <div class="row" id="scroll-btn-row">
